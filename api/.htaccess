@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /alquilerFsa/api/
+
+# Dejar pasar la cabecera Authorization (token) hasta PHP
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Si no existe el archivo o carpeta pedido, mandar todo a index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
